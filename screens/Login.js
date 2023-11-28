@@ -6,14 +6,15 @@ const LoginScreen = () => {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    // Тут ти можеш реалізувати логіку для перевірки логіну та паролю
-    // Наприклад, використовуючи API або моковані дані
+    // Тут можна додати логіку для перевірки введеного логіну та паролю
+    // Наприклад, звертайтеся до сервера для автентифікації
 
-    // Приклад перевірки:
-    if (username === 'user' && password === 'password') {
-      // Якщо логін успішний, тут можна виконати потрібні дії, наприклад, перехід на інший екран
+    // Приклад перевірки просто для демонстрації
+    if (username === 'admin' && password === 'password') {
+      // Якщо вірні дані, виконуємо вхід
       console.log('Успішний вхід!');
     } else {
+      // Якщо дані невірні, показуємо повідомлення про помилку
       console.log('Невірний логін або пароль');
     }
   };
@@ -29,9 +30,9 @@ const LoginScreen = () => {
       <TextInput
         style={styles.input}
         placeholder="Пароль"
-        secureTextEntry
         onChangeText={(text) => setPassword(text)}
         value={password}
+        secureTextEntry={true}
       />
       <Button title="Увійти" onPress={handleLogin} />
     </View>
@@ -43,16 +44,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20,
   },
   input: {
-    height: 40,
-    width: '100%',
-    borderColor: 'gray',
+    width: '80%',
+    marginBottom: 10,
     borderWidth: 1,
-    marginBottom: 20,
-    paddingHorizontal: 10,
+    padding: 10,
   },
 });
 
 export default LoginScreen;
+

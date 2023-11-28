@@ -1,13 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
+import Login from './screens/login';
+
 export default function App() {
-  return (
+  
+    return (
     <View style={styles.container}>
-      <Text>Git test!</Text>
       <StatusBar style="auto" />
+      <Login />
     </View>
-  );
+    );
 }
 
 const styles = StyleSheet.create({
