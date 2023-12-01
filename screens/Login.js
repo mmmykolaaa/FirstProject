@@ -1,40 +1,29 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import * as GoogleSignIn from 'expo-google-app-auth';
 
-const LoginScreen = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // Тут можна додати логіку для перевірки введеного логіну та паролю
-    // Наприклад, звертайтеся до сервера для автентифікації
+const LoginScreen = ({ navigation }) => {
+  const handleGoogleSignIn = async () => {
+    // Логіка Google Sign In
+  };
 
-    // Приклад перевірки просто для демонстрації
-    if (username === 'admin' && password === 'password') {
-      // Якщо вірні дані, виконуємо вхід
-      console.log('Успішний вхід!');
-    } else {
-      // Якщо дані невірні, показуємо повідомлення про помилку
-      console.log('Невірний логін або пароль');
-    }
+  const handleRegularSignIn = () => {
+    // Логіка Regular Sign In
   };
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Ім'я користувача"
-        onChangeText={(text) => setUsername(text)}
-        value={username}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Пароль"
-        onChangeText={(text) => setPassword(text)}
-        value={password}
-        secureTextEntry={true}
-      />
-      <Button title="Увійти" onPress={handleLogin} />
+      <Text style={styles.title}>Sign In</Text>
+
+      <TextInput style={styles.input} placeholder="Username" />
+      <TextInput style={styles.input} placeholder="Password" secureTextEntry />
+
+      <Button title="Regular Login" onPress={handleRegularSignIn} style={styles.button} />
+
+      <Text style={styles.orText}>Or</Text>
+
+      <Button title="Google Sign In" onPress={handleGoogleSignIn} />
     </View>
   );
 };
@@ -44,12 +33,25 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 16,
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 16,
   },
   input: {
-    width: '80%',
-    marginBottom: 10,
+    height: 40,
+    width: '80%', // Ширина поля введення
+    borderColor: 'gray',
     borderWidth: 1,
-    padding: 10,
+    marginBottom: 12,
+    paddingHorizontal: 10,
+  },
+  button: {
+    width: '80%', // Ширина кнопки
+  },
+  orText: {
+    marginVertical: 20,
   },
 });
 
