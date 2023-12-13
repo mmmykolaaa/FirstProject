@@ -1,55 +1,41 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
-import auth from '@react-native-firebase/auth';
 
-const RegistrationScreen = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+import React from 'react';
+import { View, Text, TextInput, Button, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StyleSheet, Dimensions } from 'react-native';
 
-  const handleRegistration = async () => {
-    try {
-      const userCredential = await auth().createUserWithEmailAndPassword(email, password);
-      // Відправте код на електронну пошту для підтвердження, якщо потрібно
-      await userCredential.user.sendEmailVerification();
-      Alert.alert('Registration successful', 'Please verify your email.');
-      // Перехід на інший екран або додаткові дії
-      // navigation.navigate('LoginScreen');
-    } catch (error) {
-      console.error('Error during registration:', error);
-      Alert.alert('Registration failed', 'Please check your credentials and try again.');
-    }
+const LoginScreen = ({ navigation }) => {
+  const handleLogin = () => {
+    // Логіка входу тут
+    console.log('Logging in...');
+
+    // Перехід на екран "Trading"
+    navigation.navigate('Trading');
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Registration</Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Text>Login Screen</Text>
+        <View style={styles.inputContainer}>
+          <TextInput placeholder="Username" style={styles.input} />
+          <TextInput placeholder="Password" secureTextEntry style={styles.input} />
+        </View>
+        <Button title="Login" onPress={handleLogin} />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={(text) => setEmail(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-      />
+        {/* Кнопка для забутого пароля */}
+        <TouchableOpacity onPress={() => navigation.navigate('ForgetPassword')}>
+          <Text style={styles.linkText}>Forget Password?</Text>
+        </TouchableOpacity>
 
-      <Button title="Register" onPress={handleRegistration} style={styles.button} />
-
-      <Text style={styles.orText}>Or</Text>
-
-      {/* Додайте кнопку для входу, якщо користувач вже має акаунт */}
-      <Button
-        title="Already have an account? Login"
-        onPress={() => navigation.navigate('LoginScreen')}
-      />
-    </View>
+        {/* Кнопка для реєстрації */}
+        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+          <Text style={styles.linkText}>Sign Up</Text>
+        </TouchableOpacity>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
+
+const screenWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
@@ -58,24 +44,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
   },
-  title: {
-    fontSize: 24,
-    marginBottom: 16,
+  inputContainer: {
+    width: '40%', // 80% ширини екрану
   },
   input: {
     height: 40,
-    width: '80%',
     borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 12,
-    paddingHorizontal: 10,
+    marginBottom: 10,
+    padding: 8,
+    width: '100%',
   },
-  button: {
-    width: '80%',
-  },
-  orText: {
-    marginVertical: 20,
+  linkText: {
+    color: 'blue',
+    textDecorationLine: 'underline',
+    marginTop: 10,
   },
 });
 
-export default RegistrationScreen;
+export default LoginScreen;
