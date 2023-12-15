@@ -1,6 +1,5 @@
-// TradingScreen.js
-import React, { useState } from 'react';
-import { View, Text, Button, TextInput, FlatList, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
+ import React, { useState } from 'react';
+import { View, Text, Button, TextInput, FlatList, StyleSheet, TouchableWithoutFeedback, Keyboard, Picker } from 'react-native';
 
 const TradingScreen = ({ navigation }) => {
   // Дані для прикладу
@@ -15,13 +14,12 @@ const TradingScreen = ({ navigation }) => {
 
   const [tradeType, setTradeType] = useState('Buy');
   const [tradeAmount, setTradeAmount] = useState('');
-  const [currency1, setCurrency1] = useState('');
-  const [currency2, setCurrency2] = useState('');
+  const [currency1, setCurrency1] = useState('BTC');
+  const [currency2, setCurrency2] = useState('ETH');
 
   const handleExchange = () => {
     // Логіка обміну тут
     console.log(`Exchanging ${currency1} to ${currency2}`);
-    // Перехід на інший екран, передача даних або інше необхідне
     navigation.navigate('ExchangeResult', { currency1, currency2 });
   };
 
@@ -29,7 +27,7 @@ const TradingScreen = ({ navigation }) => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <View style={styles.chartContainer}>
-          {/* Додайте графіки цін криптовалют */}
+          {/* Додати графіки цін криптовалют */}
           <Text>Price Chart Goes Here</Text>
         </View>
         <View style={styles.tradeContainer}>
@@ -46,7 +44,7 @@ const TradingScreen = ({ navigation }) => {
             )}
           />
           <Text style={styles.sectionTitle}>Trade Actions</Text>
-          {/* Замініть кнопки на поля вводу та кнопку для виконання угоди */}
+          {/* Замініти кнопки на поля вводу та кнопку для виконання угоди */}
           <TextInput
             placeholder="Amount"
             value={tradeAmount}
@@ -54,18 +52,26 @@ const TradingScreen = ({ navigation }) => {
             keyboardType="numeric"
             style={styles.input}
           />
-          <TextInput
-            placeholder="Currency 1"
-            value={currency1}
-            onChangeText={setCurrency1}
-            style={styles.input}
-          />
-          <TextInput
-            placeholder="Currency 2"
-            value={currency2}
-            onChangeText={setCurrency2}
-            style={styles.input}
-          />
+          <Text>Select Currency 1:</Text>
+          <Picker
+            selectedValue={currency1}
+            onValueChange={(itemValue) => setCurrency1(itemValue)}
+            style={styles.picker}
+          >
+            <Picker.Item label="BTC" value="BTC" />
+            <Picker.Item label="ETH" value="ETH" />
+            {/* Додайти інші валюти за необхідністю */}
+          </Picker>
+          <Text>Select Currency 2:</Text>
+          <Picker
+            selectedValue={currency2}
+            onValueChange={(itemValue) => setCurrency2(itemValue)}
+            style={styles.picker}
+          >
+            <Picker.Item label="BTC" value="BTC" />
+            <Picker.Item label="ETH" value="ETH" />
+            {/* Додайти інші валюти за необхідністю тут теж */}
+          </Picker>
           <Button title="Exchange" onPress={handleExchange} />
         </View>
       </View>
@@ -108,6 +114,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 8,
     width: '80%',
+  },
+  picker: {
+    height: 40,
+    width: '80%',
+    marginBottom: 10,
   },
 });
 

@@ -7,7 +7,6 @@ const LoginScreen = ({ navigation }) => {
     // Логіка входу тут
     console.log('Logging in...');
 
-    // Перехід на екран "Trading"
     navigation.navigate('Trading');
   };
 
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   inputContainer: {
-    width: '40%', // 80% ширини екрану
+    width: '40%', 
   },
   input: {
     height: 40,
